@@ -5,8 +5,13 @@
 #                                   IMPORTS                                         #
 #####################################################################################
 #import the turtle module
-#import the Client class from the turtle_chat_client module
+import turtle
+#import the Client class from the turtle_chat_client moudle
+from turtle_chat_client import Client
 #Finally, from the turtle_chat_widgets module, import two classes: Button and TextInput
+
+from turtle_chat_widgets import Button , TextInput
+
 #####################################################################################
 #####################################################################################
 
@@ -14,6 +19,21 @@
 #                                   TextBox                                         #
 #####################################################################################
 #Make a class called TextBox, which will be a subclass of TextInput.
+class TextBox(TextInput):
+    def draw_box(self):
+
+        self.writer.goto(-self.width,100)
+        self.writer.pendown()
+        self.writer.goto(-self.width,-self.height)
+        self.writer.goto(self.width,-self.height)
+        self.writer.goto(self.width,self.height)
+        self.writer.goto(-self.width,100)
+        box
+    def write_msg(self):
+        self.write.clear()
+        self.writer.write(self.new_msg)
+        
+    
 #Because TextInput is an abstract class, you must implement its abstract
 #methods.  There are two:
 #
@@ -42,6 +62,8 @@
 #                                  SendButton                                       #
 #####################################################################################
 #Make a class called SendButton, which will be a subclass of Button.
+class SendButton(Button):
+   pass 
 #Button is an abstract class with one abstract method: fun.
 #fun gets called whenever the button is clicked.  Its jobs will be to
 #
