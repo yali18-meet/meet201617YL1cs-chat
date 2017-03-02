@@ -28,7 +28,7 @@ class TextBox(TextInput):
         self.writer.goto(self.width,-self.height)
         self.writer.goto(self.width,self.height)
         self.writer.goto(-self.width,100)
-        box
+        
     def write_msg(self):
         self.write.clear()
         self.writer.write(self.new_msg)
@@ -63,7 +63,13 @@ class TextBox(TextInput):
 #####################################################################################
 #Make a class called SendButton, which will be a subclass of Button.
 class SendButton(Button):
-   pass 
+    def __init__(self,view):
+        self.view=view
+        super(SendButton,self).__init__()
+    def fun(self, x=None ,y=None):
+        self.view.send_msg()
+        
+ 
 #Button is an abstract class with one abstract method: fun.
 #fun gets called whenever the button is clicked.  Its jobs will be to
 #
@@ -87,6 +93,7 @@ class SendButton(Button):
 #
 #Read the comments below for hints and directions.
 ##################################################################
+
 ##################################################################
 class View:
     _MSG_LOG_LENGTH=5 #Number of messages to retain in view
@@ -102,12 +109,14 @@ class View:
         ###
         #Store the username and partner_name into the instance.
         ###
-
+        self.username = username
+        self.partner_name = partner_name
         ###
         #Make a new Client object and store it in this instance of View
         #(for example, self).  The name of the instance should be my_client
         ###
-
+        my_client= Client()
+        self.my_client = my_client
         ###
         #Set screen dimensions using turtle.setup
         #You can get help on this function, as with other turtle functions,
@@ -145,6 +154,11 @@ class View:
         ###
 
     def send_msg(self):
+        self.my_client.send(self.get_msg())
+        self.msg_queue.append(self.get_msg())
+        self.TextBox.clear_msg()
+        self.display_msg()
+        
         '''
         You should implement this method.  It should call the
         send() method of the Client object stored in this View
