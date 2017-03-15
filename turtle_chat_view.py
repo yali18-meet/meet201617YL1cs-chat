@@ -101,7 +101,7 @@ class View:
     _SCREEN_HEIGHT=600
     _LINE_SPACING=round(_SCREEN_HEIGHT/2/(_MSG_LOG_LENGTH+1))
 
-    def __init__(self,username='Me',partner_name='Partner'):
+    def __init__(self,my_username='Me',partner_name='Partner'):
         '''
         :param username: the name of this chat user
         :param partner_name: the name of the user you are chatting with
@@ -109,14 +109,14 @@ class View:
         ###
         #Store the username and partner_name into the instance.
         ###
-        self.username = username
+        self.username = my_username
         self.partner_name = partner_name
         ###
         #Make a new Client object and store it in this instance of View
         #(for example, self).  The name of the instance should be my_client
         ###
-        my_client= Client()
-        self.my_client = my_client
+        her_client= Client()
+        self.my_client = her_client
         ###
         #Set screen dimensions using turtle.setup
         #You can get help on this function, as with other turtle functions,
@@ -203,7 +203,8 @@ class View:
         #or append (to put at the end).
         #
         #Then, call the display_msg method to update the display
-
+        self.msg_queue.insert(0,msg)
+        self.display_msg()
     def display_msg(self):
         '''
         This method should update the messages displayed in the screen.
