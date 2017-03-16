@@ -30,7 +30,7 @@ class TextBox(TextInput):
         self.writer.goto(-self.width,100)
         
     def write_msg(self):
-        self.write.clear()
+        self.writer.clear()
         self.writer.write(self.new_msg)
         
     
@@ -142,12 +142,14 @@ class View:
         #You can use the clear() and write() methods to erase
         #and write messages for each
         ###
-
+        turtle.ob=turtle.clone()
+        
+      
         ###
         #Create a TextBox instance and a SendButton instance and
         #Store them inside of this instance
         ###
-
+        
         ###
         #Call your setup_listeners() function, if you have one,
         #and any other remaining setup functions you have invented.
