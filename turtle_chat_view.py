@@ -142,26 +142,30 @@ class View:
         #You can use the clear() and write() methods to erase
         #and write messages for each
         ###
-        turtle.ob=turtle.clone()
+        self.list=[]
+        for i in range(self._MSG_LOG_LENGTH):
+            self.list.append(turtle.clone())
+            self.list[i].goto(-self._SCREEN_WIDTH/2,i*self._LINE_SPACING)
         
       
         ###
         #Create a TextBox instance and a SendButton instance and
         #Store them inside of this instance
         ###
-        
+        self.my_textbox=TextBox()
+        self.my_sendbutton=SendButton()
         ###
         #Call your setup_listeners() function, if you have one,
         #and any other remaining setup functions you have invented.
         ###
-
+        send.setup_listeners()
     def send_msg(self):
         self.my_client.send(self.get_msg())
-        self.msg_queue.append(self.get_msg())
-        self.TextBox.clear_msg()
+        self.msg_queue.insert(0,self.get_msg())
+        self.my_textbox.clear_msg()
         self.display_msg()
         
-        '''
+R        '''
         You should implement this method.  It should call the
         send() method of the Client object stored in this View
         instance.  It should also update the list of messages,
@@ -178,6 +182,8 @@ class View:
     
 
     def setup_listeners(self):
+        turtle.onkeypress(self.my_sendbutton.fun,"Return")
+        turtle.listen()
         '''
         Set up send button - additional listener, in addition to click,
         so that return button will send a message.
@@ -188,9 +194,10 @@ class View:
 
         Then, it can call turtle.listen()
         '''
-        pass
+        
 
     def msg_received(self,msg):
+        
         '''
         This method is called when a new message is received.
         It should update the log (queue) of messages, and cause
@@ -207,12 +214,17 @@ class View:
         #Then, call the display_msg method to update the display
         self.msg_queue.insert(0,msg)
         self.display_msg()
+
     def display_msg(self):
         '''
         This method should update the messages displayed in the screen.
         You can get the messages you want from self.msg_queue
         '''
-        pass
+        for i in range(min(len(self.msg_queue),len(self.list))):
+            self.list[i].clear()
+            
+            self.list[i].write(self.msg_queque[i])
+            
 
     def get_client(self):
         return self.my_client
