@@ -165,7 +165,7 @@ class View:
         self.my_textbox.clear_msg()
         self.display_msg()
         
-R        '''
+       '''
         You should implement this method.  It should call the
         send() method of the Client object stored in this View
         instance.  It should also update the list of messages,
